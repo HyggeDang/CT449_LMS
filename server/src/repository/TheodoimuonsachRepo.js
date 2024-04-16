@@ -77,7 +77,9 @@ module.exports = class TheodoimuonsachRepo {
         try {
             const borrow = await Borrow.findOneAndDelete({ _id: _id });
             if (borrow) {
-                await Book.findByIdAndUpdate(borrow.masach, { $inc: { soquyendamuon: -1 } });
+                if (borrow.trangthai != 'paid') {
+                    await Book.findByIdAndUpdate(borrow.masach, { $inc: { soquyendamuon: -1 } });
+                }
                 return {
                     message: 'Xóa thành công',
                     borrow: borrow,
@@ -122,6 +124,7 @@ module.exports = class TheodoimuonsachRepo {
                 borrow.ngaytra = currentDay;
                 borrow.chiphi = price.toFixed(3);
                 return borrow.save().then(async (res) => {
+                    await Book.findByIdAndUpdate(borrow.masach, { $inc: { soquyendamuon: -1 } });
                     const result = await Borrow.findOne({ _id: data._id })
                         .populate('masach')
                         .populate('manhanvien', ['HoTenNV', 'ChucVu', 'DiaChi', 'SoDienThoai'])

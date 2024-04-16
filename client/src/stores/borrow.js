@@ -42,7 +42,6 @@ export const useBorrowStore = defineStore('borrow', {
             const token = useUserStore().token;
             return CustomAxios.post('borrow', data, { headers: { Authorization: token } })
                 .then((res) => {
-                    this.borrows.push(res.data.borrow);
                     return res.data.message;
                 })
                 .catch((err) => {
