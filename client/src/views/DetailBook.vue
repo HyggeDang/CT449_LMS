@@ -1,13 +1,17 @@
 <script>
-import { ElButton } from 'element-plus';
+import { ElButton, ElMessage } from 'element-plus';
 import BookList from '@/components/Home/BookList.vue';
 import Header from '@/components/Header.vue';
+import { mapStores } from 'pinia';
+import { useBookStore } from '@/stores/book';
+import { useUserStore } from '@/stores/user';
+import { useBorrowStore } from '@/stores/borrow';
 
 export default {
     name: 'Home',
     props: {
         id: {
-            type: Number,
+            type: String,
             required: true,
         },
     },
@@ -15,6 +19,9 @@ export default {
         ElButton,
         BookList,
         Header,
+    },
+    computed: {
+        ...mapStores(useBookStore, useUserStore, useBorrowStore),
     },
     data() {
         return {
@@ -25,8 +32,17 @@ export default {
         handleChange(value) {
             this.quantity = value;
         },
-        handleBorrow() {
-            console.log(this.quantity);
+        async handleBorrow() {
+            if (!this.userStore.token) {
+                ElMessage('Vui lòng đăng nhập để mượn sách!');
+                this.$router.push('/login');
+                return;
+            }
+            const data = {
+                masach: this.bookStore.getBook(this.id)._id,
+            };
+            const result = await this.borrowStore.borrowBook(data);
+            ElMessage(result);
         },
     },
 };
@@ -36,41 +52,29 @@ export default {
     <Header></Header>
     <main class="container">
         <div class="detail-container mt-4">
-            <div>
-                <img
-                    class="image"
-                    src="https://salt.tikicdn.com/cache/750x750/ts/product/6f/c4/48/574854f032ae36fc0d0a57b61f588965.jpg.webp"
-                    alt=""
-                />
+            <div class="imageBox">
+                <img class="image" :src="bookStore.getBook(id).image" alt="" />
             </div>
             <div class="detailInfor">
-                <h4 class="title">Mèo Chiến Binh - Tập 6 - Thời Khắc Tăm Tối</h4>
-                <p class="author">Tác giả: Erin Hunter</p>
-                <p class="quantity">Số lượng còn lại: <span>64</span></p>
-                <p class="pay">136,000 đ</p>
+                <h4 class="title">{{ bookStore.getBook(id).tensach }}</h4>
+                <p class="author">Tác giả: {{ bookStore.getBook(id).tacgia }}</p>
+                <p class="quantity">
+                    Số lượng còn lại:
+                    <span>{{ bookStore.getBook(id).soquyen - bookStore.getBook(id).soquyendamuon }}</span>
+                </p>
+                <p class="pay">{{ bookStore.getBook(id).dongia }} đ</p>
                 <div class="borrow-container">
                     <span class="borrow-quantity">Số lượng</span>
-                    <el-input-number v-model="quantity" :min="1" :max="4" @change="handleChange" />
+                    <el-input-number v-model="quantity" :min="1" :max="1" @change="handleChange" />
                     <div class="mt-3">
                         <el-button type="warning" plain @click="handleBorrow">Mượn sách</el-button>
                     </div>
                 </div>
                 <div>
                     <h6 class="title-description">Chi tiết sách:</h6>
-                    <p class="detail">Tác giả: Không biết luôn</p>
-                    <p class="detail">Nhà xuất bản: Không biết luôn</p>
-                    <p class="detail">Năm xuất bản: Không biết luôn</p>
-                </div>
-                <div>
-                    <h6 class="title-description">Giới thiệu sản phẩm:</h6>
-                    <p class="description">
-                        CHỈ CÓ LỬA MỚI CÓ THỂ CỨU ĐƯỢC TỘC CỦA CHÚNG TA… Thời khắc tăm tối nhất của tộc Sấm đang đến
-                        gần, khi khát khao quyền lực của Sao Hổ đẩy tất cả các tộc vào mối nguy hiểm kinh hoàng. Để cứu
-                        lấy tộc và những người bạn của mình, Tim Lửa phải tìm ra ý nghĩa ẩn giấu đằng sau lời sấm truyền
-                        đáng ngại đến từ tộc Sao: “Bốn sẽ biến thành hai. Sư tử sẽ tranh đấu với hổ, và máu sẽ thống trị
-                        khu rừng này.” Đã tới lúc hàm ý của những lời tiên tri dần mở ra, và cũng là thời điểm những anh
-                        hùng trỗi dậy...
-                    </p>
+                    <p class="detail">Tác giả: {{ bookStore.getBook(id).tacgia }}</p>
+                    <p class="detail">Nhà xuất bản: {{ bookStore.getBook(id).manxb.TenNxb }}</p>
+                    <p class="detail">Năm xuất bản: {{ new Date(bookStore.getBook(id).namxuatban).getFullYear() }}</p>
                 </div>
             </div>
         </div>
@@ -84,9 +88,14 @@ main {
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         display: flex;
         flex-direction: row;
-        .image {
-            max-width: 300px;
+
+        .imageBox {
+            margin-right: 16px;
+            .image {
+                max-width: 300px;
+            }
         }
+
         .detailInfor {
             .title {
                 margin-bottom: 2px;

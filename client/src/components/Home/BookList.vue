@@ -1,38 +1,38 @@
 <script>
 import BookItem from '@/components/Home/BookItem.vue';
+import { useBookStore } from '@/stores/book';
+import { mapStores } from 'pinia';
 
 export default {
     name: 'BookList',
+    setup() {
+        // const store = useBookStore().books;
+        return {
+            // store,
+        };
+    },
+    computed: {
+        ...mapStores(useBookStore),
+    },
     components: {
         BookItem,
+    },
+    methods: {},
+
+    data() {
+        return {};
     },
 };
 </script>
 
 <template>
     <div class="container BookList">
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
-        <BookItem></BookItem>
+        <BookItem
+            v-for="book in bookStore.getBooksFromTitle(bookStore.searchTitle)"
+            :key="book._id"
+            :data="book"
+        ></BookItem>
     </div>
-    <div class="pagination"><el-pagination background layout="prev, pager, next" :total="1000" /></div>
 </template>
 
 <style lang="scss">
@@ -41,7 +41,6 @@ export default {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 16px;
+    padding: 30px;
 }
 </style>

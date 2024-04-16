@@ -1,6 +1,8 @@
 <script>
 import { ElButton, ElInput, ElMessage } from 'element-plus';
-import { userStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
+import { mapStores } from 'pinia';
+import { useBookStore } from '@/stores/book';
 
 export default {
     components: {
@@ -9,9 +11,13 @@ export default {
     data: () => {
         return {
             value: '',
-            user: userStore(),
+            user: useUserStore(),
         };
     },
+    computed: {
+        ...mapStores(useBookStore),
+    },
+
     methods: {
         signOut: (user) => {
             user.SignOut();
@@ -30,7 +36,7 @@ export default {
                     <img src="../assets/img/logo.png" class="logo" />
                 </router-link>
             </div>
-            <input type="text" class="search-input" placeholder="Tìm kiếm" v-model="value" />
+            <input type="text" class="search-input" placeholder="Tìm kiếm" v-model="bookStore.searchTitle" />
             <div>
                 <div class="dropdown" v-if="!user.token">
                     <button
@@ -52,20 +58,22 @@ export default {
                     </ul>
                 </div>
                 <div v-if="user.token">
-                    <el-button @click="signOut(user)">Đăng xuất</el-button>
+                    <el-dropdown size="large" type="primary">
+                        <span class="menu-icon"
+                            ><el-icon><Expand /></el-icon
+                        ></span>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item>
+                                    <router-link class="action-link" to="/history">Lịch sử mượn sách</router-link>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <div @click="signOut(user)">Đăng xuất</div>
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
                 </div>
-                <!-- <el-dropdown size="large" type="primary">
-                    <span class="menu-icon"
-                        ><el-icon><Expand /></el-icon
-                    ></span>
-                    <template #dropdown>
-                        <el-dropdown-menu>
-                            <el-dropdown-item>
-                                <router-link class="action-link" to="/history">Lịch sử mượn sách</router-link>
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
-                    </template>
-                </el-dropdown> -->
             </div>
         </div>
     </div>

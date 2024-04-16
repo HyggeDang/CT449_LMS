@@ -2,49 +2,41 @@
 import { ElButton } from 'element-plus';
 import BookList from '@/components/Home/BookList.vue';
 import Header from '@/components/Header.vue';
+import { mapStores } from 'pinia';
+import { useBorrowStore } from '@/stores/borrow';
 
 export default {
     name: 'history',
-    props: {
-        id: {
-            type: Number,
-            required: true,
-        },
+    setup() {
+        const borrow = useBorrowStore();
+        if (!borrow.fetching) {
+            borrow.fetchBorrow();
+        }
     },
     components: {
         ElButton,
         BookList,
         Header,
     },
+    computed: {
+        ...mapStores(useBorrowStore),
+    },
     data() {
-        return {
-            tableData: [
-                {
-                    id: '2016-05-03',
-                    name: 'Alo',
-                    status: 'Chờ mượn',
-                },
-                {
-                    id: '2016-05-02',
-                    name: 'Tom',
-                    status: 'Đã mượn',
-                },
-                {
-                    id: '2016-05-04',
-                    name: 'Tom',
-                    status: 'Đã trả',
-                },
-                {
-                    id: '2016-05-01',
-                    name: 'Tom',
-                    status: 'Chờ mượn',
-                },
-            ],
-        };
+        return {};
     },
     methods: {
-        handleDelete() {
-            console.log(1);
+        handleDelete(id) {
+            this.borrowStore.deleteBorrowUser(id);
+        },
+        convertToVN(status) {
+            switch (status) {
+                case 'pending':
+                    return 'Đang chờ';
+                case 'borrow':
+                    return 'Đang mượn';
+                case 'paid':
+                    return 'Đã trả';
+            }
         },
     },
 };
@@ -55,24 +47,39 @@ export default {
 
     <main class="container">
         <h1 class="text-center m-2">Lịch sử mượn sách</h1>
-        <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column prop="id" label="Mã mượn" width="180" />
-            <el-table-column label="Tên sách" width="180">
+        <el-table :data="borrowStore.borrows" stripe style="width: 100%">
+            <el-table-column prop="mamuon" label="Mã mượn" width="180" />
+            <el-table-column prop="masach.tensach" label="Tên sách" width="180">
                 <template #default="scope">
-                    <router-link :to="`/book/${1}`">
-                        {{ scope.row.name }}
+                    <router-link :to="`/book/${scope.row.masach.masach}`">
+                        {{ scope.row.masach.tensach }}
                     </router-link>
                 </template>
             </el-table-column>
-            <el-table-column prop="status" label="Ngày mượn" />
-            <el-table-column prop="status" label="Ngày trả" />
-            <el-table-column prop="status" label="Trạng thái" />
+            <el-table-column prop="ngaymuon" label="Ngày mượn">
+                <template #default="scope">
+                    {{ scope.row?.ngaymuon && new Date(scope.row?.ngaymuon).toLocaleString() }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="ngaytra" label="Ngày trả">
+                <template #default="scope">
+                    {{ scope.row?.ngaytra && new Date(scope.row?.ngaytra).toLocaleString() }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="trangthai" label="Trạng thái">
+                <template #default="scope">
+                    {{ this.convertToVN(scope.row.trangthai) }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="chiphi" label="Chi phí">
+                <template #default="scope"> {{ scope.row.chiphi || 0 }} VND </template>
+            </el-table-column>
             <el-table-column align="right">
                 <template #default="scope">
                     <el-button
-                        v-if="scope.row.status === 'Chờ mượn'"
+                        v-if="scope.row.trangthai === 'pending'"
                         size="small"
-                        @click="handleDelete(scope.$index, scope.row)"
+                        @click="handleDelete(scope.row._id)"
                         ><el-icon>
                             <span class="delete-icons"><DeleteFilled /></span></el-icon
                     ></el-button>

@@ -1,8 +1,8 @@
 <script>
-import { userStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 import { ElMessage } from 'element-plus';
 
-const user = userStore();
+const user = useUserStore();
 
 export default {
     components: {},

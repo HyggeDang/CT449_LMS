@@ -1,6 +1,6 @@
 import { CustomAxios } from '@/Axios/CustomAxios';
 import { defineStore } from 'pinia';
-import { userStore } from './user';
+import { useUserStore } from './user';
 
 export const nxbStore = defineStore('nxbStore', {
     state: () => {
@@ -11,7 +11,7 @@ export const nxbStore = defineStore('nxbStore', {
     },
     actions: {
         async getAll() {
-            const token = userStore().token;
+            const token = useUserStore().token;
 
             return await CustomAxios.get('nxb', { headers: { Authorization: token } })
                 .then((res) => {
@@ -26,7 +26,7 @@ export const nxbStore = defineStore('nxbStore', {
         },
 
         async add(data) {
-            const token = userStore().token;
+            const token = useUserStore().token;
             return await CustomAxios.post('nxb/add', data, { headers: { Authorization: token } })
                 .then((res) => {
                     this.NXB.push(res.data.nxb);
@@ -38,7 +38,7 @@ export const nxbStore = defineStore('nxbStore', {
                 });
         },
         async update(data) {
-            const token = userStore().token;
+            const token = useUserStore().token;
             return await CustomAxios.patch(`nxb/${data.manxb}`, data, { headers: { Authorization: token } })
                 .then((res) => {
                     this.NXB.forEach((item) => {
@@ -54,7 +54,7 @@ export const nxbStore = defineStore('nxbStore', {
                 });
         },
         async delete(manxb) {
-            const token = userStore().token;
+            const token = useUserStore().token;
             return await CustomAxios.delete(`nxb/${manxb}`, { headers: { Authorization: token } })
                 .then((res) => {
                     this.NXB = this.NXB.filter((item) => item.manxb != manxb);

@@ -10,10 +10,10 @@ main {
 </style>
 <script>
 import LoginForm from '@/components/LoginForm.vue';
-import { userStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 import { ElMessage } from 'element-plus';
 
-const user = userStore();
+const user = useUserStore();
 export default {
     name: 'Login User',
     components: {

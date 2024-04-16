@@ -1,8 +1,8 @@
 <script>
 import { ElButton, ElInput, ElMessage } from 'element-plus';
-import { userStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
 
-const user = userStore();
+const user = useUserStore();
 
 export default {
     components: {

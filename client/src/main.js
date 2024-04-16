@@ -12,6 +12,7 @@ import 'element-plus/dist/index.css';
 
 import App from './App.vue';
 import router from './router';
+import { useBookStore } from '@/stores/book';
 
 const pinia = createPinia();
 setActivePinia(pinia);
@@ -22,5 +23,12 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.use(ElementPlus);
 app.use(pinia);
+
+const book = useBookStore();
 app.use(router);
+
+if (!book.fetching) {
+    book.getAll();
+}
+
 app.mount('#app');

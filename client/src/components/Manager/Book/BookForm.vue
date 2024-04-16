@@ -1,4 +1,8 @@
 <script>
+import { nxbStore } from '@/stores/nxb';
+
+const nxb = nxbStore();
+
 export default {
     components: {},
     props: {
@@ -7,7 +11,11 @@ export default {
             required: false,
         },
     },
-    data: () => {},
+    data: () => {
+        return {
+            nxbs: nxb.NXB,
+        };
+    },
     methods: {
         submit() {
             this.$emit('handleSubmit', this.book);
@@ -29,12 +37,12 @@ export default {
                 type="number"
                 style="width: 300px"
                 size="large"
-                placeholder="Nhập đơn gái"
+                placeholder="Nhập đơn giá (VND)"
             />
         </div>
         <div class="d-flex flex-column my-2">
             <label>Số quyển:</label>
-            <el-input v-model="book.soquyen" style="width: 300px" size="large" placeholder="Nhập địa chỉ" />
+            <el-input v-model="book.soquyen" style="width: 300px" size="large" placeholder="Nhập số lượng" />
         </div>
         <div class="d-flex flex-column my-2" style="width: 300px">
             <label>Nhà xuất bản:</label>
@@ -45,7 +53,7 @@ export default {
                 size="large"
                 style="width: 240px"
             >
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                <el-option v-for="nxb in nxbs" :key="nxb._id" :label="nxb.TenNxb" :value="nxb._id" />
             </el-select>
         </div>
         <div class="d-flex flex-column my-2">

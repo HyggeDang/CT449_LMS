@@ -1,5 +1,7 @@
 <script>
+import { ElMessage } from 'element-plus';
 import BookForm from './BookForm.vue';
+import { useBookStore } from '@/stores/book';
 
 export default {
     components: {
@@ -12,8 +14,9 @@ export default {
         };
     },
     methods: {
-        addBook(data) {
-            console.log(data);
+        async addBook(data) {
+            let result = await useBookStore().addBook(data);
+            ElMessage(result);
         },
     },
 };

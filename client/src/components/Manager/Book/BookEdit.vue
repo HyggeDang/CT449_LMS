@@ -1,5 +1,7 @@
 <script>
+import { ElMessage } from 'element-plus';
 import BookForm from './BookForm.vue';
+import { useBookStore } from '@/stores/book';
 
 export default {
     props: {
@@ -13,22 +15,29 @@ export default {
         BookForm,
     },
 
-    data: () => {
+    data() {
+        const book = useBookStore().getBook(this.masach);
         return {
-            test: {},
+            data: {
+                ...book,
+                manxb: book.manxb._id,
+                namxuatban: new Date(book.namxuatban).getFullYear(),
+            },
         };
+    },
+    methods: {
+        async submit(data) {
+            const result = await useBookStore().updateBook(data);
+            ElMessage(result);
+        },
     },
 };
 </script>
 
 <template>
     <div>
-        <h4 class="m-4 text-center">Thêm Sách</h4>
-        {{ masach }}
-        <BookForm :book="test" />
-        <div class="d-flex justify-content-center align-items-center">
-            <el-button type="primary" plain>Thêm sách</el-button>
-        </div>
+        <h4 class="m-4 text-center">Chỉnh sửa sách</h4>
+        <BookForm :book="data" @handleSubmit="submit" />
     </div>
 </template>
 

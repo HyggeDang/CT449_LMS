@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import { userStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user';
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -33,6 +34,14 @@ const router = createRouter({
         {
             path: '/history',
             name: 'history',
+            beforeEnter(to, from, next) {
+                const user = useUserStore();
+                if (user.token) {
+                    next();
+                } else {
+                    next('/login');
+                }
+            },
             component: () => import('../views/HistoryView.vue'),
         },
         {
@@ -45,7 +54,7 @@ const router = createRouter({
             name: 'manager',
             component: () => import('../views/ManagerView.vue'),
             beforeEnter(to, from, next) {
-                const user = userStore();
+                const user = useUserStore();
                 if (user.token && user.userInfor.ChucVu) {
                     next();
                 } else {

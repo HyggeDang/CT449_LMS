@@ -1,33 +1,13 @@
 <script>
-import { ElButton, ElInput } from 'element-plus';
+import { ElButton, ElInput, ElMessage } from 'element-plus';
+import { useBookStore } from '@/stores/book';
 export default {
     components: {
         ElInput,
     },
     data() {
         return {
-            books: [
-                {
-                    date: '2016-05-03',
-                    tensach: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-02',
-                    tensach: 'John',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-04',
-                    tensach: 'Morgan',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-                {
-                    date: '2016-05-01',
-                    tensach: 'Jessy',
-                    address: 'No. 189, Grove St, Los Angeles',
-                },
-            ],
+            books: useBookStore().books,
             search: '',
         };
     },
@@ -44,6 +24,18 @@ export default {
             this.$router.push({
                 name: 'add-book',
             });
+        },
+        navigatorToEdit(masach) {
+            this.$router.push({
+                name: 'edit-book',
+                params: {
+                    masach,
+                },
+            });
+        },
+        async handleDelete(masach) {
+            const result = await useBookStore().delete(masach);
+            (this.books = useBookStore().books), ElMessage(result);
         },
     },
 };
@@ -64,7 +56,7 @@ export default {
                                 <p m="t-0 b-2">Tên sách: {{ scope.row?.tensach }}</p>
                                 <p m="t-0 b-2">Đơn giá: {{ scope.row?.dongia }}</p>
                                 <p m="t-0 b-2">Tổng số quyển: {{ scope.row?.soquyen }}</p>
-                                <p m="t-0 b-2">Năm xuất bản: {{ scope.row?.namxuatban }}</p>
+                                <p m="t-0 b-2">Năm xuất bản: {{ new Date(scope.row?.namxuatban).getFullYear() }}</p>
                             </div>
                             <div class="col-6">
                                 <p m="t-0 b-2">Nhà xuất bản: {{ scope.row?.manxb?.TenNxb }}</p>
@@ -75,7 +67,7 @@ export default {
                     </template>
                 </el-table-column>
                 <el-table-column type="index" label="STT"> </el-table-column>
-                <el-table-column label="Mã sách" prop="date" />
+                <el-table-column label="Mã sách" prop="masach" />
                 <el-table-column label="Tên Sách" prop="tensach">
                     <template #default="scope">
                         <router-link to="/book/1">
@@ -94,8 +86,8 @@ export default {
                         <el-input v-model="search" size="small" placeholder="Nhập tên sách để tìm kiếm" />
                     </template>
                     <template #default="scope">
-                        <el-button size="small">Chỉnh sửa</el-button>
-                        <el-button size="small" type="danger">Xóa</el-button>
+                        <el-button size="small" @click="navigatorToEdit(scope.row.masach)">Chỉnh sửa</el-button>
+                        <el-button size="small" type="danger" @click="handleDelete(scope.row.masach)">Xóa</el-button>
                     </template>
                 </el-table-column>
             </el-table>
