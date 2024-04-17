@@ -41,7 +41,7 @@ export default {
 
 <template>
     <div class="Book">
-        <h4>Quản lý mượn sách</h4>
+        <h4 class="text-center m-2">Quản lý mượn sách</h4>
     </div>
     <div class="container table-container">
         <el-table :data="borrowStore.borrowsAdmin" style="width: 100%">
