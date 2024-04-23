@@ -36,7 +36,7 @@ export default {
 
 <template>
     <div>
-        <h4 class="m-4 text-center">Chỉnh sửa sách</h4>
+        <h4 class="m-4 text-center">Cập nhật Sách</h4>
         <BookForm :book="data" @handleSubmit="submit" />
     </div>
 </template>

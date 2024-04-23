@@ -43,7 +43,7 @@ export default {
 
 <template>
     <div class="Book">
-        <h4 class="text-center m-2">Quản lý sách</h4>
+        <h4 class="text-center m-2">Tổng Hợp Sách</h4>
         <div class="container create-btn-container d-flex justify-content-end">
             <el-button type="primary" plain @click="handleNavigateToAddBook">Thêm sách mới</el-button>
         </div>

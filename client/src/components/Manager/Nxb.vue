@@ -45,7 +45,7 @@ export default {
 
 <template>
     <div class="Book">
-        <h4 class="text-center m-2">Quản lý nhà xuất bản</h4>
+        <h4 class="text-center m-2">Nhà Xuất Bản</h4>
         <div class="container create-btn-container d-flex justify-content-end">
             <el-button type="primary" plain @click="navigatorToAdd">Thêm NXB mới</el-button>
         </div>

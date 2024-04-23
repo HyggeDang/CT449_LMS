@@ -30,7 +30,7 @@ export default {
 
 <template>
     <div>
-        <h4 class="m-4 text-center">Chỉnh sửa Nhà Xuất Bản</h4>
+        <h4 class="m-4 text-center">Cập nhật Nhà Xuất Bản</h4>
         <NxbForm :nxb="data" @handleSubmit="submit" />
     </div>
 </template>

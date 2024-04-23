@@ -24,7 +24,7 @@ export default {
 
 <template>
     <div>
-        <h4 class="m-4 text-center">Thêm Sách</h4>
+        <h4 class="m-4 text-center">Thêm Sách Mới</h4>
         <BookForm :book="data" @handleSubmit="addBook" />
     </div>
 </template>
