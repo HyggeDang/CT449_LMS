@@ -16,7 +16,7 @@ export default {
 <template>
     <Header></Header>
     <main class="container">
-        <h1 class="text-center m-2">Danh sách sách</h1>
+        <h1 class="text-center m-2">Sách</h1>
         <BookList></BookList>
     </main>
 </template>

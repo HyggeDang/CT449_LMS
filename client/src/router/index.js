@@ -26,6 +26,11 @@ const router = createRouter({
             component: () => import('../views/SignupUserView.vue'),
         },
         {
+            path: '/signupmanager',
+            name: 'signupmanager',
+            component: () => import('../views/SignupAdminView.vue'),
+        },
+        {
             path: '/book/:id',
             name: 'book',
             component: () => import('../views/DetailBook.vue'),
@@ -76,15 +81,6 @@ const router = createRouter({
                     path: 'nxb',
                     name: 'manager-nxb',
                     component: () => import('../components/Manager/Nxb.vue'),
-                    // children: [
-
-                    //     {
-                    //         path: 'edit/:manxb',
-                    //         name: 'edit-nxb',
-                    //         component: () => import('../components/Manager/NXB/NxbEdit.vue'),
-                    //         props: true,
-                    //     },
-                    // ],
                 },
                 {
                     path: 'nxb/add',
@@ -115,12 +111,6 @@ const router = createRouter({
                 },
             ],
         },
-
-        // {
-        //     path: '*',
-        //     name: 'not-found',
-        //     component: () => import('../views/NotFoundView.vue'),
-        // },
     ],
 });
 

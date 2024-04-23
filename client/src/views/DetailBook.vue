@@ -72,7 +72,7 @@ export default {
                 </div>
                 <div>
                     <h6 class="title-description">Chi tiết sách:</h6>
-                    <p class="detail">Tác giả: {{ bookStore.getBook(id).tacgia }}</p>
+                    <!-- <p class="detail">Tác giả: {{ bookStore.getBook(id).tacgia }}</p> -->
                     <p class="detail">Nhà xuất bản: {{ bookStore.getBook(id).manxb.TenNxb }}</p>
                     <p class="detail">Năm xuất bản: {{ new Date(bookStore.getBook(id).namxuatban).getFullYear() }}</p>
                 </div>
@@ -95,6 +95,9 @@ main {
                 max-width: 300px;
             }
         }
+        .detail{
+            color: #777777;
+        }
 
         .detailInfor {
             .title {
@@ -103,10 +106,10 @@ main {
             .author {
                 margin-top: 0;
                 margin-bottom: 4px;
-                color: #1d9d74;
+                color: #777777;
             }
             .pay {
-                font-size: 26px;
+                font-size: 20px;
                 color: #fe642e;
                 font-weight: 600;
             }
@@ -128,6 +131,12 @@ main {
             }
             .detail {
                 margin: 2px;
+            }
+
+            .el-button--warning.is-link, .el-button--warning.is-plain, .el-button--warning.is-text {
+                background-image: linear-gradient(to right, #3064e6, #8551ff) !important;
+                color: white;
+                border: 1px solid white;
             }
         }
     }

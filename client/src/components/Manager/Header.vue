@@ -30,7 +30,7 @@ export default {
         <div class="header-box container">
             <div class="logo">
                 <router-link to="/">
-                    <img src="../../assets/img/logo.png" class="logo" />
+                    <img src="..\..\assets\img\logo.jpg" class="logo" />
                 </router-link>
             </div>
             <el-button @click="SignOut">Đăng xuất</el-button>
@@ -45,7 +45,21 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    background: #e5e5e5;
+    color: #fff;
+    // background: #e5e5e5;
+    background-image: linear-gradient(to right, #3064e6, #8551ff);
+
+    .el-button{
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .el-button:hover{
+        background-color: #fff;
+        color: black;
+    }
 
     .header-box {
         display: flex;
@@ -58,7 +72,7 @@ export default {
             border-radius: 9px;
         }
         .text {
-            color: aqua;
+            color: rgb(255, 255, 255);
         }
         .search-input {
             width: 300px;

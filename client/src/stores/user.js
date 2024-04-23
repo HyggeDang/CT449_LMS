@@ -19,6 +19,16 @@ export const useUserStore = defineStore('user', {
                     return false;
                 });
         },
+        SignUpStaff: async function (data) {
+            return await CustomAxios.post('auth/staffSignup', data)
+                .then((res) => {
+                    return res.data.message;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
+        },
         SignInStaff: async function (data) {
             return await CustomAxios.post('auth/staffSignin', data)
                 .then((res) => {

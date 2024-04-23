@@ -47,7 +47,7 @@ export default {
                 //     password: this.password,
                 // });
             } else {
-                this.message = 'Mật khẩu xác thực không chính xác';
+                this.message = 'Mật khẩu đã nhập không chính xác';
             }
             ElMessage(this.message);
         },
@@ -84,7 +84,7 @@ export default {
                         class="form-control mt-3"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Mật khẩu xác thực"
+                        placeholder="Nhập lại mật khẩu"
                         v-model="rePassword"
                     />
                     <input
@@ -122,7 +122,7 @@ export default {
                 </div>
                 <button type="button" class="btn btn-primary mt-2" @click="submit">Đăng ký</button>
                 <span class="mt-4"
-                    >Nếu đã có tài khoản? <router-link to="/login"><span>Đăng nhập</span></router-link></span
+                    >Bạn đã có tài khoản? <router-link to="/login"><span>Đăng nhập</span></router-link></span
                 >
             </div>
         </div>
@@ -146,7 +146,7 @@ export default {
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 32px 16px;
+            padding: 50px 80px;
             border-radius: 4px;
             .logo {
                 width: 80px;

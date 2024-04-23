@@ -54,6 +54,11 @@ export default {
         width: 190px;
         height: 190px;
     }
+    a{
+        color: #000;
+        text-decoration: none;
+        font-size: 18px;
+    }
 
     .title {
         min-height: 40px;
@@ -63,10 +68,11 @@ export default {
         -webkit-line-clamp: 2; /* number of lines to show */
         line-clamp: 2;
         -webkit-box-orient: vertical;
+        color: #000;
     }
     .author {
         font-size: 12px;
-        color: #1d9d74;
+        color: #777777;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 1; /* number of lines to show */

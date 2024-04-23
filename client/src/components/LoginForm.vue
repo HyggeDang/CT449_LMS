@@ -74,13 +74,28 @@ export default {
             flex-direction: column;
             padding: 120px 100px;
             border-radius: 20px;
-            background-color: #65ace94c;
+            background-image: linear-gradient(to right, #3064e6, #8551ff);
             .logo {
                 width: 80px;
-                border-radius: 45%;
+                border-radius: 15px;
+            }
+            .btn-primary{
+                border: 2px solid white;
+                background-color: transparent;
+            }
+            .btn-primary:hover{
+                background-color: white;
+                color: black;
             }
 
             .input {
+                border: 1px solid white;
+            }
+
+            span{
+                color: white;
+                text-decoration: none;
+
             }
         }
     }

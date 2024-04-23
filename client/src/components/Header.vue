@@ -36,7 +36,7 @@ export default {
                     <img src="../assets/img/logo.jpg" class="logo" />
                 </router-link>
             </div>
-            <input type="text" class="search-input" placeholder="Tìm kiếm" v-model="bookStore.searchTitle" />
+            <input type="text" class="search-input" placeholder="Tìm kiếm sách tại đây..." v-model="bookStore.searchTitle" />
             <div>
                 <div class="dropdown" v-if="!user.token">
                     <button
@@ -50,10 +50,10 @@ export default {
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="login-btn">
                         <li>
-                            <router-link class="dropdown-item" to="/login">Đăng nhập người dùng</router-link>
+                            <router-link class="dropdown-item" to="/login">Đăng nhập User</router-link>
                         </li>
                         <li>
-                            <router-link class="dropdown-item" to="/loginmanager">Đăng nhập Nhân viên</router-link>
+                            <router-link class="dropdown-item" to="/loginmanager">Đăng nhập Admin</router-link>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +86,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    background: #34aaf4;
+    background-image: linear-gradient(to right, #3064e6, #8551ff);
 
     .header-box {
         display: flex;
@@ -96,7 +96,7 @@ export default {
         .logo {
             max-width: 60px;
             max-height: 60px;
-            border-radius: 9px;
+            border-radius: 15px;
         }
         .text {
             color: rgb(255, 255, 255);
@@ -104,7 +104,7 @@ export default {
         .search-input {
             width: 300px;
             margin-left: 10px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid #fff;
             border-radius: 4px;
             padding: 4px 8px;
 
@@ -116,9 +116,17 @@ export default {
         }
         .menu-icon {
             font-size: 26px;
+            color: white;
         }
         .action-link {
             text-decoration: none;
+            color: black;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #fff;
+            font-weight: 500;
         }
     }
 }

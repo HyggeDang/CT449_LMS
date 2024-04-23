@@ -43,15 +43,15 @@ export default {
         <div class="d-flex justify-content-evenly text-center">
             <router-link to="/manager/borrow" class="navigation-link flex-grow-1">
                 <div :class="`navigation ${routeBookCheck() == 'manager-borrow' ? 'active' : ''}`">
-                    Quản lý Mượn Sách
+                    Theo Dõi Mượn Sách
                 </div>
             </router-link>
             <router-link to="/manager/book" class="navigation-link flex-grow-1">
-                <div :class="`navigation ${routeBookCheck() == 'manager-book' ? 'active' : ''}`">Quản lý sách</div>
+                <div :class="`navigation ${routeBookCheck() == 'manager-book' ? 'active' : ''}`">Sách</div>
             </router-link>
             <router-link to="/manager/NXB" class="navigation-link flex-grow-1">
                 <div :class="`navigation ${routeBookCheck() == 'manager-nxb' ? 'active' : ''}`">
-                    Quản lý Nhà Xuất Bản
+                    Nhà Xuất Bản
                 </div>
             </router-link>
         </div>
@@ -73,9 +73,17 @@ export default {
         padding: 2px;
         font-size: 18px;
         font-weight: 600;
+        text-decoration: none;
+        color: #000;
+        background: #fff;
+        border: 1px solid #777;
+        border-radius: 2px;
         &.active {
-            background: #22daac;
-            color: #fff;
+            // background: #22daac;
+            background: #fff;
+            text-decoration: none;
+            // background-image: linear-gradient(to right, #3064e6, #8551ff);
+            color: #000;
         }
     }
 }
