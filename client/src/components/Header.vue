@@ -33,7 +33,7 @@ export default {
         <div class="header-box container">
             <div class="logo">
                 <router-link to="/">
-                    <img src="../assets/img/logo.png" class="logo" />
+                    <img src="../assets/img/logo.jpg" class="logo" />
                 </router-link>
             </div>
             <input type="text" class="search-input" placeholder="Tìm kiếm" v-model="bookStore.searchTitle" />
@@ -86,7 +86,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    background: #e5e5e5;
+    background: #34aaf4;
 
     .header-box {
         display: flex;
@@ -99,7 +99,7 @@ export default {
             border-radius: 9px;
         }
         .text {
-            color: aqua;
+            color: rgb(255, 255, 255);
         }
         .search-input {
             width: 300px;

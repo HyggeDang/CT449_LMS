@@ -9,7 +9,7 @@ const ApiError = require('./api-error');
 const routes = require('./routes');
 dotenv.config({ path: '../.env' });
 
-const PORT = 8080;
+const PORT = 3000;
 
 db.connect();
 

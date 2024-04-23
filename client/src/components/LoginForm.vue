@@ -26,7 +26,7 @@ export default {
         <div class="loginContainer">
             <div class="loginBox">
                 <div>
-                    <img src="../assets/img/logo.png" class="logo" />
+                    <img src="../assets/img/logo.jpg" class="logo" />
                 </div>
                 <div class="flex gap-1 m-4">
                     <input
@@ -72,10 +72,12 @@ export default {
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 32px 16px;
-            border-radius: 4px;
+            padding: 120px 100px;
+            border-radius: 20px;
+            background-color: #65ace94c;
             .logo {
                 width: 80px;
+                border-radius: 45%;
             }
 
             .input {

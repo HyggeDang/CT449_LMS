@@ -60,7 +60,7 @@ export default {
         <div class="loginContainer">
             <div class="loginBox">
                 <div>
-                    <img src="../assets/img/logo.png" class="logo" />
+                    <img src="../assets/img/logo.jpg" class="logo" />
                 </div>
                 <div class="flex gap-1 m-4">
                     <input
